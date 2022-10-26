@@ -2,14 +2,18 @@ package com.projectspring.course.entities;
 
 import jakarta.persistence.*;
 
+import java.io.Serial;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 // colocar annotations para que o JPA saiba como converter os objetos para o modelo relacional
 @Entity
 @Table(name = "tb_user")    // especificando o nome da tabela do banco de dados
-public class User implements Serializable{     // Serializaible para o bojeto poder trafegar na rede, ser grvado em arquivos.
+public class User implements Serializable{     // Serializable para o objeto poder trafegar na rede, ser gravado em arquivos.
 
+    @Serial
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,6 +22,9 @@ public class User implements Serializable{     // Serializaible para o bojeto po
     private String email;
     private String phone;
     private String password;
+    //coloca so o get da List porque não podemos ficar setando ela (Coleções é somente o get)
+    @OneToMany(mappedBy = "client")        //falar com quem ele está mapeado
+    private List<Order> orders = new ArrayList<>();     //como é coleção tem que se instanciado (colocar o =  new...)
 
     //como é framework é obrigado a colocar um construtor vazio
     public User() {
@@ -42,6 +49,8 @@ public class User implements Serializable{     // Serializaible para o bojeto po
     public String getName() {
         return name;
     }
+
+
 
     public void setName(String name) {
         this.name = name;
@@ -71,6 +80,9 @@ public class User implements Serializable{     // Serializaible para o bojeto po
         this.password = password;
     }
 
+    public List<Order> getOrders() {
+        return orders;
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
