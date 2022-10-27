@@ -1,5 +1,6 @@
 package com.projectspring.course.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serial;
@@ -23,6 +24,7 @@ public class User implements Serializable{     // Serializable para o objeto pod
     private String phone;
     private String password;
     //coloca so o get da List porque não podemos ficar setando ela (Coleções é somente o get)
+    @JsonIgnore     //da erro quando busca um user porque o order tem o client e o user usa o order
     @OneToMany(mappedBy = "client")        //falar com quem ele está mapeado
     private List<Order> orders = new ArrayList<>();     //como é coleção tem que se instanciado (colocar o =  new...)
 
