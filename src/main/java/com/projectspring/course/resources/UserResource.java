@@ -18,6 +18,10 @@ public class UserResource {
     @Autowired
     private UserService service;
 
+    public UserResource(UserService service) {
+        this.service = service;
+    }
+
     @GetMapping
     public ResponseEntity <List<User>> findAll() {       // ResponseEntity é para retornar respostas de requisições web
         List<User> list = service.findAll();

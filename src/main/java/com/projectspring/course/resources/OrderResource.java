@@ -1,9 +1,7 @@
 package com.projectspring.course.resources;
 
 import com.projectspring.course.entities.Order;
-import com.projectspring.course.entities.User;
 import com.projectspring.course.services.OrderService;
-import com.projectspring.course.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +16,10 @@ import java.util.List;
 public class OrderResource {
     @Autowired
     private OrderService service;
+
+    public OrderResource(OrderService service) {
+        this.service = service;
+    }
 
     @GetMapping
     public ResponseEntity<List<Order>> findAll() {       // ResponseEntity é para retornar respostas de requisições web
