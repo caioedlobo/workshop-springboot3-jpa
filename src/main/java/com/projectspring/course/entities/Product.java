@@ -22,7 +22,10 @@ public class Product implements Serializable {
 
     //usa o Set para garantir que não vai ter um produto com mais de uma ocorrência na mesma categoria
     //Usa o HashSet porque o Set é apenas uma interface
-    @Transient
+    @ManyToMany
+    @JoinTable(name = "tb_product_category", joinColumns = @JoinColumn(name = "product_id"),
+    inverseJoinColumns = @JoinColumn(name = "category_id"))      //chave estrangeira da outra entidade (a Categoria)
+
     private Set<Category> categories = new HashSet<>();     //instancia para garantir que a coleção não comece fazia
     //private List<Order> orders = new ArrayList<>();
 

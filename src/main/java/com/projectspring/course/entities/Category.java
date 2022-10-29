@@ -1,5 +1,6 @@
 package com.projectspring.course.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serial;
@@ -16,7 +17,8 @@ public class Category implements Serializable {     // para o objeto poder trafe
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    @Transient
+    @JsonIgnore
+     @ManyToMany(mappedBy = "categories")     //mapeamento para o JonTable do Product, categories porque foi o que colocamos no Product
     private Set<Product> products = new HashSet<>();
 
     public Category() {
