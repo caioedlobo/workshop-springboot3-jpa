@@ -14,6 +14,10 @@ public class OrderService {
     @Autowired//injeção de dependência
     private OrderRepository repository;
 
+    public OrderService(OrderRepository repository) {
+        this.repository = repository;
+    }
+
     public List<Order> findAll(){
         return repository.findAll();
     }

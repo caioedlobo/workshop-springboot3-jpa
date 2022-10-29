@@ -4,8 +4,7 @@ import jakarta.persistence.*;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 @Table(name = "tb_category")
@@ -17,8 +16,8 @@ public class Category implements Serializable {     // para o objeto poder trafe
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-
-    //private List<Product> = new ArrayList<>();
+    @Transient
+    private Set<Product> products = new HashSet<>();
 
     public Category() {
     }
@@ -42,6 +41,10 @@ public class Category implements Serializable {     // para o objeto poder trafe
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Set<Product> getProducts() {
+        return products;
     }
 
     @Override
