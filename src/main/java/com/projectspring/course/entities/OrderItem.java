@@ -1,5 +1,6 @@
 package com.projectspring.course.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.projectspring.course.entities.pk.OrderItemPK;
 import jakarta.persistence.*;
 
@@ -13,7 +14,7 @@ public class OrderItem implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
     @EmbeddedId
-    private OrderItemPK id;
+    private OrderItemPK id = new OrderItemPK();     //tem que instanciar classe auxiliar de chave composta
 
     private Integer quantity;
     private Double price;
@@ -28,6 +29,8 @@ public class OrderItem implements Serializable {
         this.price = price;
     }
 
+    @JsonIgnore     // na Java Enterprise, o que vale é o método get então temos que colocar o JsonIgnore aqui.
+    // ele tava chamando o pedido associado a esse item de pedido e ficana no looping
     public Order getOrder(){
         return id.getOrder();
     }

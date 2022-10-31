@@ -7,7 +7,9 @@ import jakarta.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_order")
@@ -27,6 +29,9 @@ public class Order implements Serializable {  // Serializable para o objeto pode
     @ManyToOne      // para dizer que é uma chave estrangeira muitos para um
     @JoinColumn(name = "client_id")     // nome da chave
     private User client;
+
+    @OneToMany(mappedBy = "id.order")   //id.order porque ele tem que acessar o id e depois o order que está dentro dele
+    private Set<OrderItem> items = new HashSet<>();     // faz o pedido conhecer os itens dele
 
     public Order() {
     }
@@ -70,6 +75,10 @@ public class Order implements Serializable {  // Serializable para o objeto pode
 
     public void setClient(User client) {
         this.client = client;
+    }
+
+    public Set<OrderItem> getItems(){
+        return items;
     }
 
     @Override

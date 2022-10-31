@@ -19,7 +19,7 @@ public class OrderItemPK {      //sempre que precisar criar uma classe auxiliar 
     @JoinColumn(name = "product_id")
     private Product product;
 
-    //não cria cosntrutor
+    //não cria construtor
 
 
     public Order getOrder() {
