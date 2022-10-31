@@ -38,7 +38,7 @@ public class OrderItem implements Serializable {
     public void setOrder(Order order){
         id.setOrder(order);
     }
-
+    //@JsonIgnore     // para evitar o loop infinito
     public Product getProduct(){
         return id.getProduct();
     }
@@ -58,6 +58,7 @@ public class OrderItem implements Serializable {
     public Double getPrice() {
         return price;
     }
+
 
     public void setPrice(Double price) {
         this.price = price;
