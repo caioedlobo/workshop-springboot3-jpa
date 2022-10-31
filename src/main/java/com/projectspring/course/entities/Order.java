@@ -32,6 +32,9 @@ public class Order implements Serializable {  // Serializable para o objeto pode
 
     @OneToMany(mappedBy = "id.order")   //id.order porque ele tem que acessar o id e depois o order que está dentro dele
     private Set<OrderItem> items = new HashSet<>();     // faz o pedido conhecer os itens dele
+    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)       //como é OneToOne colocamos o cascade
+    //mapeamos as duas entidades para terem o mesmo ID, se o pedido for codigo 5, o pedido também terá codigo 5
+    private Payment payment;
 
     public Order() {
     }
@@ -79,6 +82,14 @@ public class Order implements Serializable {  // Serializable para o objeto pode
 
     public Set<OrderItem> getItems(){
         return items;
+    }
+
+    public Payment getPayment() {
+        return payment;
+    }
+
+    public void setPayment(Payment payment) {
+        this.payment = payment;
     }
 
     @Override
