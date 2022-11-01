@@ -4,11 +4,10 @@ import com.projectspring.course.entities.User;
 import com.projectspring.course.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -32,5 +31,13 @@ public class UserResource {
     public ResponseEntity<User> findById(@PathVariable Long id){    //pega o id do value
         User obj = service.findById(id);
         return ResponseEntity.ok().body(obj);
+    }
+
+    @PostMapping
+    public ResponseEntity<User> insert(@RequestBody User obj){  // oara dizer que o obj vai chegar como json e vai virar um objeto do tipo User usamos o RequestBody
+        obj = service.insert(obj);
+        //como o codigo deve ser 201 (created) temos que fazer isso
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
+        return ResponseEntity.created(uri).body(obj);       //precisa do location que é o que colocamos no uri
     }
 }
